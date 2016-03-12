@@ -1,0 +1,10 @@
+filetype: 
+	targz
+srcdir: 
+	/home/mgohde/testsrcdir
+destdir: 
+	/home/mgohde/testdestdir
+logfile: 
+	/home/mgohde/testdestdir/log.txt
+baktype:
+	full/targz

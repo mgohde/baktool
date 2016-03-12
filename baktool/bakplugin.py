@@ -104,7 +104,7 @@ def getcanhandle(ext):
 
 
 def logbackup(logfile, bakfilename):
-  logfile.write(bakfilename+" "+datetime.date.today()+"\n")
+  logfile.write(bakfilename+" "+str(datetime.date.today())+"\n")
 
 
 def readlog(logfilename):

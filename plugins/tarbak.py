@@ -53,6 +53,6 @@ class tarbak(bakplugin.BackupTool):
     return
   
   
-  def can_handle(backuptype):
+  def can_handle(self, backuptype):
     return backuptype=="full/targz"
   

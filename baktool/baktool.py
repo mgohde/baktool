@@ -6,8 +6,7 @@ import bakplugin
 def getbasedir():
   bdir=os.getenv("BAKTOOL_BASE")
   if bdir==None:
-    print("WARNING: BAKTOOL_BASE not set!")
-    return ""
+    return sys.path[0]+"/.."
   return bdir
 
 
@@ -28,10 +27,11 @@ def tokenize(filename):
   ret_toks=[]
   
   for t in toks:
+    t=t.strip()
     if t[len(t)-1]==':':
       ret_toks.append([t.strip(':').strip()])
     else:
-      ret_toks[len(ret_toks)-1].append(t.strip)
+      ret_toks[len(ret_toks)-1].append(t.strip())
   return ret_toks
 
 
@@ -48,6 +48,7 @@ def run_backup(filename):
   srcdir=findtok(toks, "srcdir")
   destdir=findtok(toks, "destdir")
   logfile=findtok(toks, "logfile")
+  argdict={}
   argdict['filetype']=bakext
   argdict['srcdir']=srcdir
   argdict['destdir']=destdir
@@ -92,6 +93,7 @@ def show_plugins():
 
 
 def main(argv):
+  print("Base directory: "+getbasedir())
   sys.path.append(".")
   sys.path.append(getbasedir()+"/plugins")
   sys.path.append(getbasedir()+"/baktool")
@@ -104,6 +106,11 @@ def main(argv):
   
   action=argv[0]
   
+  if action!="plugins":
+    if len(argv)<2:
+      print("ERROR: Not enough args! Try specifying a filename.")
+      print_usage()
+      return
   if action=="backup":
     run_backup(argv[1])
   elif action=="restore":
